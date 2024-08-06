@@ -8,7 +8,17 @@ class Auth:
     """class """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """public """
-        return False
+        if path is None:
+            return True
+        if not excluded_paths:
+            return True
+        path = path.rstrip('/') + '/'
+
+        for excluded_path in excluded_paths:
+            if path.startswith(excluded_path):
+                return False
+
+        return True
 
     def authorization_header(self, request=None) -> str:
         """public method"""
