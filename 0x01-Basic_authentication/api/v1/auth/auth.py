@@ -4,15 +4,28 @@ from flask import request
 from typing import List, TypeVar
 
 
-class Auth():
+class Auth:
     """class """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """method """
-        return False
+        if path is None:
+            return True
+        if excluded_paths is None or excluded_paths == "":
+            return True
+        if path in excluded_paths:
+            return True
+        paths = path.rstrip('/')
+        for excluded in excluded_paths:
+            paths_excluded = excluded.rstrip('/')
+            if paths == paths_excluded:
+                return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """ public method"""
-        return None
+        if request in None:
+            return None
+        return  request.headers.get('Authorization', None)
 
     def current_user(self, request=None) -> TypeVar('User'):
         """public method"""
