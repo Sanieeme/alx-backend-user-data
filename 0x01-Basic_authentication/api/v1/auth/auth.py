@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ import modules """
 from flask import request
-from typing import List, TypeVar
+from typing import List, TypeVar, Optional
 
 
 class Auth:
@@ -25,7 +25,7 @@ class Auth:
         """ public method"""
         if request in None:
             return None
-        return  request.headers.get('Authorization', None)
+        return  request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """public method"""

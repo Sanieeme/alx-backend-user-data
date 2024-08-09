@@ -25,6 +25,7 @@ else:
 
 @app.before_request
 def handle_before():
+    """ Filter each request based on authentication """
     if auth is None:
         return
     excluded_paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
