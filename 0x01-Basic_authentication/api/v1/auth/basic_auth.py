@@ -8,7 +8,9 @@ from typing import TypeVar
 
 class BasicAuth(Auth):
     """class that inherits"""
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(
+            self, authorization_header: str
+    ) -> str:
         """ method returns the Base64 part of the Authorization header
         for a Basic Authentication
         """
@@ -20,7 +22,9 @@ class BasicAuth(Auth):
             return authorization_header[len('Basic '):]
         return None
 
-    def decode_base64_authorization_header(self, base64_authorization_header: str) -> str:
+    def decode_base64_authorization_header(
+            self, base64_authorization_header: str
+    ) -> str:
         """ returns decoded values of a base64 string"""
         if base64_authorization_header is None:
             return None
@@ -32,7 +36,9 @@ class BasicAuth(Auth):
         except (TypeError, base64.binascii.Error, UnicodeDecodeError):
             return None
 
-    def extract_user_credentials(self, decoded_base64_authorization_header: str) -> (str, str):
+    def extract_user_credentials(
+            self, decoded_base64_authorization_header: str
+    ) -> (str, str):
         """method that returns the user email and password
         from the Base64 decoded value
         """
@@ -45,7 +51,9 @@ class BasicAuth(Auth):
         email, password = decoded_base64_authorization_header.split(':', 1)
         return email, password
 
-    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str
+    ) -> TypeVar('User'):
         """ method that returns the User instance
         based on his email and password
         """
@@ -71,11 +79,15 @@ class BasicAuth(Auth):
         if not auth_header:
             return None
 
-        base64_auth_header = self.extract_base64_authorization_header(auth_header)
+        base64_auth_header = self.extract_base64_authorization_header(
+                auth_header
+        )
         if not base64_auth_header:
             return None
 
-        decoded_auth_header = self.decode_base64_authorization_header(base64_auth_header)
+        decoded_auth_header = self.decode_base64_authorization_header(
+                base64_auth_header
+        )
         if not decoded_auth_header:
             return None
 
