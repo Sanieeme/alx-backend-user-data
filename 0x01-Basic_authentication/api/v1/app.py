@@ -32,7 +32,7 @@ def handle_before():
         return
     excluded_paths = [
         '/api/v1/status/',
-        '/api/v1/unauthorized/', 
+        '/api/v1/unauthorized/',
         '/api/v1/forbidden/'
     ]
     if request.path not in excluded_paths:
